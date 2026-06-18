@@ -1,0 +1,342 @@
+/* ============================================================
+   MAIN.CSS - Estilos globales del Sistema El Cortijo
+   ============================================================ */
+
+/* -------- VARIABLES -------- */
+:root {
+    --verde-molino: #2d6a4f;
+    --verde-claro: #40916c;
+    --amarillo-maiz: #f4d35e;
+    --marron-tierra: #6c584c;
+    --gris-suave: #f8f9fa;
+    --brand-primary-violet: #825ee4;
+    --brand-primary-blue: #39a1f8;
+    --brand-text-title: #344767;
+    --brand-text-secondary: #67748e;
+    --brand-success: #2dce89;
+    --brand-warning: #fb6340;
+    --brand-danger: #f5365c;
+    --brand-info: #1171ef;
+}
+
+/* -------- BODY -------- */
+body {
+    background-color: var(--gris-suave);
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* -------- GRADIENTES -------- */
+.main-gradient-text {
+    background: linear-gradient(to right, var(--brand-primary-violet), var(--brand-primary-blue));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.main-gradient-bg {
+    background-image: linear-gradient(310deg, var(--brand-primary-violet) 0%, var(--brand-primary-blue) 100%);
+}
+
+.gradient-bg-success {
+    background-image: linear-gradient(310deg, #2d6a4f, #52b788);
+}
+
+.gradient-bg-danger {
+    background-image: linear-gradient(310deg, #f5365c 0%, #f56036 100%);
+}
+
+.gradient-bg-warning {
+    background-image: linear-gradient(310deg, #fb6340 0%, #fbb140 100%);
+}
+
+/* -------- SIDEBAR -------- */
+aside {
+    background: linear-gradient(180deg, #ffffff, #f1f3f5);
+    border-right: 1px solid #dee2e6;
+}
+
+/* -------- CARDS -------- */
+.card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #dee2e6;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    transition: all 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+}
+
+/* -------- NAV -------- */
+.nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    margin: 0 1rem;
+    border-radius: 0.5rem;
+    color: var(--brand-text-title);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    border-left: 4px solid var(--verde-molino);
+}
+
+.nav-link.active .nav-icon-bg,
+.nav-link:hover .nav-icon-bg {
+    background-image: linear-gradient(310deg, var(--verde-molino), var(--verde-claro));
+}
+
+.nav-link.active .nav-icon-svg,
+.nav-link:hover .nav-icon-svg {
+    fill: white;
+}
+
+.nav-icon-bg {
+    width: 2rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    display: grid;
+    place-items: center;
+    background-color: #e9ecef;
+    transition: all 0.2s ease-in-out;
+    flex-shrink: 0;
+}
+
+.nav-icon-svg {
+    width: 1rem;
+    height: 1rem;
+    fill: var(--brand-text-title);
+    transition: all 0.2s ease-in-out;
+}
+
+/* -------- STAT CARDS -------- */
+.stat-card-icon {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.75rem;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    background: linear-gradient(135deg, var(--verde-molino), var(--verde-claro));
+}
+
+.stat-card-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: white;
+}
+
+/* -------- TIPOGRAFÍA -------- */
+.label-caps {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brand-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+h1, h2, h3 {
+    color: #1b4332;
+}
+
+/* -------- BOTONES -------- */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.875rem;
+    letter-spacing: 0.05em;
+    transition: all 0.2s ease-in-out;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+    text-decoration: none;
+}
+
+.btn-primary {
+    color: white;
+    background-image: linear-gradient(310deg, var(--verde-molino), var(--verde-claro)) !important;
+    color: #fff !important;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 7px 14px rgb(0 0 0 / 0.1), 0 3px 6px rgb(0 0 0 / 0.08);
+}
+
+.btn-danger {
+    color: white;
+    background-color: var(--brand-danger);
+}
+
+.btn.bg-gray-200 {
+    background-color: #dee2e6 !important;
+    color: #344767 !important;
+    border: 1px solid #ced4da;
+}
+
+.btn.bg-gray-200:hover {
+    background-color: #ced4da !important;
+}
+
+/* -------- INPUTS -------- */
+input, select {
+    background-color: #ffffff !important;
+    border: 1px solid #ced4da;
+}
+
+input:focus, select:focus {
+    border-color: var(--verde-molino);
+    outline: none;
+    ring: 2px solid var(--verde-molino);
+}
+
+/* -------- TABLAS -------- */
+.table-header {
+    color: #1b4332;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid #e9ecef;
+    background-color: #f1f3f5;
+}
+
+.table-cell {
+    padding: 1rem 1.5rem;
+    color: var(--brand-text-secondary);
+    vertical-align: middle;
+    border-bottom: 1px solid #e9ecef;
+    background-color: #ffffff;
+}
+
+tr:hover .table-cell {
+    background-color: #e9f5ef;
+}
+
+tbody tr:nth-child(even) .table-cell {
+    background-color: #f8f9fa;
+}
+
+tbody tr:nth-child(even):hover .table-cell {
+    background-color: #e9f5ef;
+}
+
+/* -------- BADGES -------- */
+.status-badge {
+    display: inline-block;
+    padding: 0.25em 0.6em;
+    font-size: 75%;
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 0.375rem;
+}
+
+.status-badge-success {
+    color: #fff;
+    background-color: var(--verde-claro) !important;
+}
+
+.status-badge-secondary {
+    color: #fff;
+    background-color: #adb5bd !important;
+}
+
+.status-badge-info {
+    color: #fff;
+    background-color: var(--brand-info);
+}
+
+.status-badge-warning {
+    color: #fff;
+    background-color: var(--brand-warning);
+}
+
+.status-badge-danger {
+    color: #fff;
+    background-color: var(--brand-danger);
+}
+
+/* -------- PROGRESS BAR -------- */
+.progress-bar {
+    height: 0.5rem;
+    background-color: #e9ecef;
+    border-radius: 0.25rem;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    border-radius: 0.25rem;
+}
+
+/* -------- MODALES -------- */
+.modal {
+    transition: opacity 0.25s ease;
+}
+
+.modal-content {
+    transition: transform 0.25s ease;
+    border-radius: 14px;
+}
+
+.modal h3 {
+    color: #1b4332;
+}
+
+/* -------- INPUTS DE CANTIDAD -------- */
+.quantity-input {
+    width: 4rem;
+    text-align: center;
+}
+
+/* -------- LINKS DE ACCIÓN -------- */
+.text-brand-danger {
+    color: #d00000 !important;
+    font-weight: 700;
+}
+
+.text-brand-danger:hover {
+    text-decoration: underline;
+}
+
+.text-brand-primary-blue {
+    color: #1d4ed8 !important;
+    font-weight: 700;
+}
+
+/* -------- CHECKOUT -------- */
+.checkout-step .card {
+    border-top: 4px solid var(--verde-molino);
+}
+
+/* -------- BOTONES EN MODALES -------- */
+.modal .btn {
+    min-width: 130px;
+}
+
+/* -------- TÍTULO PRINCIPAL -------- */
+.molino-title {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: linear-gradient(90deg, #2d6a4f, #52b788);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

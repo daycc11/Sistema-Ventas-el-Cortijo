@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: appHead('Nueva Venta')}"></head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar('checkout')}"></div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+
+        <!-- Header -->
+        <div th:replace="~{fragments/header :: appHeader('Nueva Venta')}"></div>
+
+        <!-- PASO 1: Carrito -->
+        <div id="checkout-step-1" class="checkout-step">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div class="lg:col-span-2 card">
+                    <div class="mb-6 pb-6 border-b">
+                        <h3 class="text-lg font-bold mb-4">Añadir Producto al Carrito</h3>
+                        <div class="flex flex-col sm:flex-row items-end gap-4">
+                            <div class="flex-grow w-full">
+                                <label class="label-caps" for="select-producto-carrito">Producto</label>
+                                <select id="select-producto-carrito" class="w-full mt-2 p-3 border border-gray-300 rounded-md bg-white"></select>
+                            </div>
+                            <div class="w-full sm:w-auto">
+                                <label class="label-caps" for="input-cantidad-carrito">Cantidad</label>
+                                <input type="number" id="input-cantidad-carrito" value="1" min="1"
+                                       class="w-full mt-2 p-3 border border-gray-300 rounded-md quantity-input">
+                            </div>
+                            <button class="btn btn-primary w-full sm:w-auto" onclick="addProductToCart()">Añadir</button>
+                        </div>
+                    </div>
+                    <h2 class="text-xl font-bold mb-4">Resumen del Pedido</h2>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead>
+                            <tr>
+                                <th class="table-header text-left">Producto</th>
+                                <th class="table-header text-center">Cantidad</th>
+                                <th class="table-header text-right">Subtotal</th>
+                                <th class="table-header text-center"></th>
+                            </tr>
+                            </thead>
+                            <tbody id="cart-items-body"></tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="lg:col-span-1">
+                    <div class="card">
+                        <h3 class="text-lg font-bold mb-4">Total del Carrito</h3>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span style="color:#67748e">Subtotal</span>
+                                <span id="cart-subtotal" class="font-semibold">S/0.00</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span style="color:#67748e">Envío</span>
+                                <span id="cart-shipping" class="font-semibold">S/0.00</span>
+                            </div>
+                            <hr class="my-2">
+                            <div class="flex justify-between text-xl">
+                                <span class="font-bold">Total</span>
+                                <span id="cart-total" class="font-bold">S/0.00</span>
+                            </div>
+                        </div>
+                        <button class="btn btn-primary w-full mt-6" onclick="goToCheckoutStep(2)">Continuar al Envío</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PASO 2: Despacho -->
+        <div id="checkout-step-2" class="checkout-step hidden">
+            <div class="card max-w-2xl mx-auto">
+                <h2 class="text-xl font-bold mb-4">Información de Despacho</h2>
+                <form id="form-despacho" class="space-y-4">
+                    <div>
+                        <label class="label-caps" for="select-cliente">Seleccionar Cliente</label>
+                        <div class="flex items-center gap-2 mt-2">
+                            <select id="select-cliente" class="w-full p-3 border border-gray-300 rounded-md bg-white"
+                                    onchange="handleCustomerSelect(event)"></select>
+                            <button type="button" onclick="openNewClientModalFromCheckout()"
+                                    class="btn btn-primary flex-shrink-0" title="Registrar Nuevo Cliente">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div>
+                        <label class="label-caps">Dirección de Envío</label>
+                        <input id="despacho-direccion" type="text" placeholder="Seleccione un cliente para autocompletar"
+                               class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="label-caps">Teléfono</label>
+                            <input id="despacho-telefono" type="tel" placeholder="Seleccione un cliente"
+                                   class="w-full mt-2 p-3 border border-gray-300 rounded-md" readonly>
+                        </div>
+                        <div>
+                            <label class="label-caps">DNI</label>
+                            <input id="despacho-dni" type="text" placeholder="Seleccione un cliente"
+                                   class="w-full mt-2 p-3 border border-gray-300 rounded-md" readonly>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-6">
+                        <button type="button" class="btn bg-gray-200" style="color:#344767" onclick="goToCheckoutStep(1)">Volver</button>
+                        <button type="button" class="btn btn-primary" onclick="goToCheckoutStep(3)">Continuar al Pago</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- PASO 3: Pago -->
+        <div id="checkout-step-3" class="checkout-step hidden">
+            <div class="card max-w-2xl mx-auto">
+                <h2 class="text-xl font-bold mb-4">Información de Pago</h2>
+                <form class="space-y-4">
+                    <div>
+                        <label class="label-caps" for="select-forma-pago">Forma de Pago</label>
+                        <select id="select-forma-pago" class="w-full mt-2 p-3 border border-gray-300 rounded-md bg-white"
+                                onchange="handlePaymentMethodChange(event)">
+                            <option value="">-- Seleccione una opción --</option>
+                        </select>
+                    </div>
+                    <div id="payment-details-tarjeta" class="payment-details hidden space-y-4">
+                        <div>
+                            <label class="label-caps">Número de Tarjeta</label>
+                            <input type="text" placeholder="---- ---- ---- ----" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label class="label-caps">Fecha de Vencimiento (MM/AA)</label>
+                                <input type="text" placeholder="MM/AA" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                            </div>
+                            <div>
+                                <label class="label-caps">CVC</label>
+                                <input type="text" placeholder="123" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="payment-details-transferencia" class="payment-details hidden text-sm space-y-3" style="color:#67748e">
+                        <p class="font-bold" style="color:#344767">Realice la transferencia a una de las siguientes cuentas:</p>
+                        <div>
+                            <p><span class="font-semibold">BCP Soles:</span> 191-12345678-0-12</p>
+                            <p><span class="font-semibold">CCI:</span> 00219100123456780112</p>
+                        </div>
+                        <div>
+                            <p><span class="font-semibold">Interbank Soles:</span> 045-3001234567</p>
+                            <p><span class="font-semibold">CCI:</span> 00304500300123456745</p>
+                        </div>
+                        <p>Titular: El Cortijo S.A.C. - RUC 20123456789</p>
+                    </div>
+                    <div id="payment-details-yape" class="payment-details hidden flex flex-col md:flex-row items-center gap-6">
+                        <div class="w-36 h-36 rounded-lg bg-gray-100 flex items-center justify-center text-gray-400 text-sm text-center p-2">
+                            Código QR Yape
+                        </div>
+                        <div class="text-sm space-y-2" style="color:#67748e">
+                            <p class="font-bold text-lg" style="color:#344767">Pagar con Yape o Plin</p>
+                            <p><span class="font-semibold">Número:</span> 987 654 321</p>
+                            <p><span class="font-semibold">Nombre:</span> El Cortijo S.A.C</p>
+                            <p class="italic">En la nota coloque su número de DNI.</p>
+                        </div>
+                    </div>
+                    <div class="flex justify-between mt-6">
+                        <button type="button" class="btn bg-gray-200" style="color:#344767" onclick="goToCheckoutStep(2)">Volver</button>
+                        <button type="button" class="btn btn-primary" onclick="finalizePurchase()">Finalizar Compra</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- PASO 4: Confirmación -->
+        <div id="checkout-step-4" class="checkout-step hidden">
+            <div class="card max-w-2xl mx-auto text-center">
+                <div class="w-16 h-16 rounded-full gradient-bg-success mx-auto flex items-center justify-center mb-6">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                    </svg>
+                </div>
+                <h2 class="text-2xl font-bold mb-2">¡Pedido Realizado con Éxito!</h2>
+                <p style="color:#67748e" class="mb-6">Tu comprobante ha sido generado correctamente.</p>
+                <p style="color:#67748e">ID del Pedido: <span id="order-id-success" class="font-bold" style="color:#344767"></span></p>
+                <div class="mt-8">
+                    <a th:href="@{/}" class="btn btn-primary">Volver al Dashboard</a>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modal Cliente (disponible en checkout) -->
+    <div id="modal-nuevo-cliente"
+         class="modal fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50 opacity-0"
+         onclick="closeModalOnOverlay(event)">
+        <div class="modal-content bg-white rounded-xl shadow-lg w-full max-w-md p-6 transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-cliente-title" class="text-xl font-bold">Registrar Nuevo Cliente</h3>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" onclick="closeModal('modal-nuevo-cliente')">×</button>
+            </div>
+            <form id="form-nuevo-cliente" class="space-y-4">
+                <input type="hidden" id="cliente-id">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="cliente-nombre">Nombre</label>
+                        <input type="text" id="cliente-nombre" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="cliente-apellido">Apellido</label>
+                        <input type="text" id="cliente-apellido" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="cliente-dni">DNI</label>
+                        <input type="text" id="cliente-dni" required maxlength="8" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="cliente-telefono">Teléfono</label>
+                        <input type="tel" id="cliente-telefono" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div>
+                    <label class="label-caps" for="cliente-direccion">Dirección</label>
+                    <input type="text" id="cliente-direccion" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                </div>
+                <div class="flex justify-end gap-4 pt-4">
+                    <button type="button" class="btn bg-gray-200" style="color:#344767" onclick="closeModal('modal-nuevo-cliente')">Cancelar</button>
+                    <button type="submit" id="modal-cliente-submit-button" class="btn btn-primary">Guardar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/checkout.js}"></script>
+
+</body>
+</html>

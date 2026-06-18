@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Sidebar fragment: recibe 'activePage' para marcar el link activo -->
+<aside th:fragment="sidebar(activePage)" class="w-64 flex-shrink-0 hidden lg:flex flex-col p-4 min-h-screen">
+    <!-- Logo / Brand -->
+    <div class="flex items-center gap-3 px-4 mb-8">
+        <svg class="w-8 h-8" style="color:#2d6a4f" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+        </svg>
+        <span class="font-extrabold text-xl" style="color:#1b4332">El Cortijo</span>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="space-y-1 flex-1">
+        <!-- Dashboard -->
+        <a th:href="@{/}" class="nav-link"
+           th:classappend="${activePage == 'dashboard'} ? ' active' : ''">
+            <div class="nav-icon-bg">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
+                </svg>
+            </div>
+            <span class="ml-4">Dashboard</span>
+        </a>
+
+        <!-- Tablas -->
+        <a th:href="@{/tablas}" class="nav-link"
+           th:classappend="${activePage == 'tablas'} ? ' active' : ''">
+            <div class="nav-icon-bg">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M3 3h18v2H3V3zm0 4h18v2H3V7zm0 4h18v2H3v-2zm0 4h18v2H3v-2zm0 4h18v2H3v-2z"/>
+                </svg>
+            </div>
+            <span class="ml-4">Tablas</span>
+        </a>
+
+        <!-- Checkout / Carrito -->
+        <a th:href="@{/checkout}" class="nav-link"
+           th:classappend="${activePage == 'checkout'} ? ' active' : ''">
+            <div class="nav-icon-bg">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/>
+                </svg>
+            </div>
+            <span class="ml-4">Nueva Venta</span>
+        </a>
+
+        <hr class="my-4 border-gray-200">
+        <p class="px-4 text-xs font-bold uppercase" style="color:#67748e">Mi Cuenta</p>
+
+        <!-- Perfil -->
+        <a th:href="@{/perfil}" class="nav-link"
+           th:classappend="${activePage == 'perfil'} ? ' active' : ''">
+            <div class="nav-icon-bg">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                </svg>
+            </div>
+            <span class="ml-4">Perfil</span>
+        </a>
+    </nav>
+
+    <!-- Logout -->
+    <div class="mt-auto pt-4 border-t border-gray-200">
+        <a th:href="@{/perform_logout}" class="nav-link text-red-500 hover:text-red-700">
+            <div class="nav-icon-bg">
+                <svg class="nav-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" style="fill:none">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+            </div>
+            <span class="ml-4">Cerrar Sesión</span>
+        </a>
+    </div>
+</aside>
+
+</body>
+</html>

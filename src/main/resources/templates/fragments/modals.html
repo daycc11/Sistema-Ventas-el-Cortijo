@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<div th:fragment="allModals">
+
+    <!-- MODAL: Nuevo / Editar Producto -->
+    <div id="modal-nuevo-producto"
+         class="modal fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50 opacity-0"
+         onclick="closeModalOnOverlay(event)">
+        <div class="modal-content bg-white rounded-xl shadow-lg w-full max-w-md p-6 transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-title" class="text-xl font-bold">Registrar Nuevo Producto</h3>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" onclick="closeModal('modal-nuevo-producto')">×</button>
+            </div>
+            <form id="form-nuevo-producto" class="space-y-4">
+                <input type="hidden" id="producto-id">
+                <div>
+                    <label class="label-caps" for="producto-nombre">Nombre del Producto</label>
+                    <input type="text" id="producto-nombre" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="label-caps" for="producto-tipo">Tipo de Alimento</label>
+                    <select id="producto-tipo" required class="w-full mt-2 p-3 border border-gray-300 rounded-md bg-white"></select>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="producto-precio">Precio Unitario</label>
+                        <input type="number" id="producto-precio" step="0.01" min="0" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="producto-stock">Stock</label>
+                        <input type="number" id="producto-stock" min="0" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-4 pt-4">
+                    <button type="button" class="btn bg-gray-200 text-brand-text-title" onclick="closeModal('modal-nuevo-producto')">Cancelar</button>
+                    <button type="submit" id="modal-submit-button" class="btn btn-primary">Guardar Producto</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Nuevo / Editar Cliente -->
+    <div id="modal-nuevo-cliente"
+         class="modal fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50 opacity-0"
+         onclick="closeModalOnOverlay(event)">
+        <div class="modal-content bg-white rounded-xl shadow-lg w-full max-w-md p-6 transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-cliente-title" class="text-xl font-bold">Registrar Nuevo Cliente</h3>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" onclick="closeModal('modal-nuevo-cliente')">×</button>
+            </div>
+            <form id="form-nuevo-cliente" class="space-y-4">
+                <input type="hidden" id="cliente-id">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="cliente-nombre">Nombre</label>
+                        <input type="text" id="cliente-nombre" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="cliente-apellido">Apellido</label>
+                        <input type="text" id="cliente-apellido" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="cliente-dni">DNI</label>
+                        <input type="text" id="cliente-dni" required maxlength="8" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="cliente-telefono">Teléfono</label>
+                        <input type="tel" id="cliente-telefono" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div>
+                    <label class="label-caps" for="cliente-direccion">Dirección</label>
+                    <input type="text" id="cliente-direccion" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                </div>
+                <div class="flex justify-end gap-4 pt-4">
+                    <button type="button" class="btn bg-gray-200 text-brand-text-title" onclick="closeModal('modal-nuevo-cliente')">Cancelar</button>
+                    <button type="submit" id="modal-cliente-submit-button" class="btn btn-primary">Guardar Cliente</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Nuevo / Editar Empleado -->
+    <div id="modal-nuevo-empleado"
+         class="modal fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50 opacity-0"
+         onclick="closeModalOnOverlay(event)">
+        <div class="modal-content bg-white rounded-xl shadow-lg w-full max-w-md p-6 transform scale-95">
+            <div class="flex justify-between items-center mb-4">
+                <h3 id="modal-empleado-title" class="text-xl font-bold">Registrar Nuevo Empleado</h3>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" onclick="closeModal('modal-nuevo-empleado')">×</button>
+            </div>
+            <form id="form-nuevo-empleado" class="space-y-4">
+                <input type="hidden" id="empleado-id">
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="empleado-nombre">Nombre</label>
+                        <input type="text" id="empleado-nombre" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="empleado-apellido">Apellido</label>
+                        <input type="text" id="empleado-apellido" required class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div>
+                        <label class="label-caps" for="empleado-dni">DNI</label>
+                        <input type="text" id="empleado-dni" required maxlength="8" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                    <div>
+                        <label class="label-caps" for="empleado-telefono">Teléfono</label>
+                        <input type="tel" id="empleado-telefono" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                    </div>
+                </div>
+                <div>
+                    <label class="label-caps" for="empleado-rol">Rol</label>
+                    <select id="empleado-rol" required class="w-full mt-2 p-3 border border-gray-300 rounded-md bg-white"></select>
+                </div>
+                <div>
+                    <label class="label-caps" for="empleado-password">Contraseña</label>
+                    <input type="password" id="empleado-password" class="w-full mt-2 p-3 border border-gray-300 rounded-md" placeholder="Contraseña inicial requerida">
+                </div>
+                <div>
+                    <label class="label-caps" for="empleado-direccion">Dirección</label>
+                    <input type="text" id="empleado-direccion" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                </div>
+                <div>
+                    <label class="label-caps" for="empleado-fecha-nac">Fecha Nacimiento</label>
+                    <input type="date" id="empleado-fecha-nac" class="w-full mt-2 p-3 border border-gray-300 rounded-md">
+                </div>
+                <div class="flex justify-end gap-4 pt-4">
+                    <button type="button" class="btn bg-gray-200 text-brand-text-title" onclick="closeModal('modal-nuevo-empleado')">Cancelar</button>
+                    <button type="submit" id="modal-empleado-submit-button" class="btn btn-primary">Guardar Empleado</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL: Ver Detalle de Pedido -->
+    <div id="modal-ver-pedido"
+         class="modal fixed inset-0 bg-gray-900 bg-opacity-50 hidden items-center justify-center p-4 z-50 opacity-0"
+         onclick="closeModalOnOverlay(event)">
+        <div class="modal-content bg-white rounded-xl shadow-lg w-full max-w-2xl p-6 transform scale-95">
+            <div class="flex justify-between items-center mb-4 pb-4 border-b">
+                <h3 id="modal-pedido-title" class="text-xl font-bold">Detalle del Pedido</h3>
+                <button class="text-gray-400 hover:text-gray-600 text-2xl leading-none" onclick="closeModal('modal-ver-pedido')">×</button>
+            </div>
+            <div id="modal-pedido-body" class="space-y-6"></div>
+            <div class="flex justify-end gap-4 pt-4 mt-6 border-t">
+                <button type="button" class="btn bg-gray-200 text-brand-text-title" onclick="closeModal('modal-ver-pedido')">Cerrar</button>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>

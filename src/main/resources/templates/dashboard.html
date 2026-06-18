@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: appHead('Dashboard')}"></head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar('dashboard')}"></div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+
+        <!-- Header -->
+        <div th:replace="~{fragments/header :: appHeader('Dashboard')}"></div>
+
+        <!-- KPIs -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
+            <div class="card flex items-center justify-between">
+                <div>
+                    <p class="label-caps">Ventas de Hoy</p>
+                    <p id="kpi-ventas" class="text-2xl font-bold" style="color:#344767">S/0.00</p>
+                    <p class="text-sm"><span class="font-bold" style="color:#2dce89">Actualizado</span></p>
+                </div>
+                <div class="stat-card-icon">
+                    <svg viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+                        <path d="M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="card flex items-center justify-between">
+                <div>
+                    <p class="label-caps">Pedidos del Mes</p>
+                    <p id="kpi-pedidos" class="text-2xl font-bold" style="color:#344767">0</p>
+                    <p class="text-sm"><span class="font-bold" style="color:#2dce89">Este mes</span></p>
+                </div>
+                <div class="stat-card-icon gradient-bg-danger">
+                    <svg viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+                        <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="card flex items-center justify-between">
+                <div>
+                    <p class="label-caps">Clientes</p>
+                    <p id="kpi-clientes" class="text-2xl font-bold" style="color:#344767">0</p>
+                    <p class="text-sm">Registrados</p>
+                </div>
+                <div class="stat-card-icon gradient-bg-success">
+                    <svg viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+                        <path d="M15 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm-9-2V7H4v3H1v2h3v3h2v-3h3v-2H6zm9 4c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                </div>
+            </div>
+            <div class="card flex items-center justify-between">
+                <div>
+                    <p class="label-caps">Productos en Stock</p>
+                    <p id="kpi-productos" class="text-2xl font-bold" style="color:#344767">0</p>
+                    <p class="text-sm">Disponibles</p>
+                </div>
+                <div class="stat-card-icon gradient-bg-warning">
+                    <svg viewBox="0 0 24 24" fill="white" class="w-6 h-6">
+                        <path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm-1 14H5c-.55 0-1-.45-1-1V8h16v9c0 .55-.45 1-1 1z"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Gráfico y Tabla de Ventas por Provincia -->
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-6">
+            <div class="lg:col-span-3 card">
+                <h2 class="text-xl font-bold">Resumen de Ventas</h2>
+                <p class="text-sm" style="color:#67748e"><span class="font-bold" style="color:#2dce89">(+15%)</span> más en 2025.</p>
+                <div class="mt-4 h-80"><canvas id="salesChart"></canvas></div>
+            </div>
+            <div class="lg:col-span-2 card">
+                <h2 class="text-xl font-bold">Ventas Por Provincia</h2>
+                <div class="overflow-x-auto mt-4">
+                    <table class="w-full">
+                        <tbody>
+                        <tr class="border-b">
+                            <td class="py-3 text-sm" style="color:#67748e">Provincia: <span class="font-semibold" style="color:#344767">Trujillo</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">Ventas: <span class="font-semibold" style="color:#344767">2,500</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">S/230,900</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-3 text-sm" style="color:#67748e">Provincia: <span class="font-semibold" style="color:#344767">Chiclayo</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">Ventas: <span class="font-semibold" style="color:#344767">3,900</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">S/440,000</td>
+                        </tr>
+                        <tr class="border-b">
+                            <td class="py-3 text-sm" style="color:#67748e">Provincia: <span class="font-semibold" style="color:#344767">Virú</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">Ventas: <span class="font-semibold" style="color:#344767">1,400</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">S/190,700</td>
+                        </tr>
+                        <tr>
+                            <td class="py-3 text-sm" style="color:#67748e">Provincia: <span class="font-semibold" style="color:#344767">Chao</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">Ventas: <span class="font-semibold" style="color:#344767">562</span></td>
+                            <td class="py-3 text-sm" style="color:#67748e">S/143,960</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reportes y Pedidos Recientes -->
+        <div>
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-4">
+                <div>
+                    <h2 class="text-xl font-bold">Consultas y Reportes</h2>
+                    <p style="color:#67748e">Visualiza datos y genera reportes del sistema.</p>
+                </div>
+                <form id="form-reporte-ventas" class="flex flex-col sm:flex-row sm:items-end gap-2 mt-4 md:mt-0">
+                    <div class="flex-grow">
+                        <label for="reporte-fecha-inicio" class="label-caps text-xs">Fecha Inicio</label>
+                        <input type="date" id="reporte-fecha-inicio" required class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div class="flex-grow">
+                        <label for="reporte-fecha-fin" class="label-caps text-xs">Fecha Fin</label>
+                        <input type="date" id="reporte-fecha-fin" required class="w-full p-2 border border-gray-300 rounded-md">
+                    </div>
+                    <div class="flex-shrink-0 flex space-x-2">
+                        <button type="submit" class="btn btn-primary text-xs">Ventas (PDF)</button>
+                        <a th:href="@{/api/reportes/stock-pdf}" class="btn bg-gray-600 text-white text-xs">Stock (PDF)</a>
+                    </div>
+                </form>
+            </div>
+
+            <div class="card">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Historial de Pedidos Recientes</h2>
+                        <p style="color:#67748e">Últimos 5 pedidos registrados.</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                        <tr>
+                            <th class="table-header">ID Pedido</th>
+                            <th class="table-header">Cliente</th>
+                            <th class="table-header">Fecha y Hora</th>
+                            <th class="table-header">Estado</th>
+                            <th class="table-header">Total</th>
+                            <th class="table-header">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla-pedidos-dashboard-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modales compartidos -->
+    <div th:replace="~{fragments/modals :: allModals}"></div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/dashboard.js}"></script>
+
+    <script>
+        // Cargar KPIs dinámicamente
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/pedidos').then(r => r.json()).then(pedidos => {
+                document.getElementById('kpi-pedidos').textContent = pedidos.length;
+                const totalVentas = pedidos.reduce((sum, p) => sum + (p.total || 0), 0);
+                document.getElementById('kpi-ventas').textContent = 'S/' + totalVentas.toFixed(2);
+            }).catch(() => {});
+
+            fetch('/api/clientes').then(r => r.json()).then(c => {
+                document.getElementById('kpi-clientes').textContent = c.length;
+            }).catch(() => {});
+
+            fetch('/api/productos').then(r => r.json()).then(p => {
+                const enStock = p.filter(prod => prod.stock > 0).length;
+                document.getElementById('kpi-productos').textContent = enStock;
+            }).catch(() => {});
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: appHead('Tablas')}"></head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <div th:replace="~{fragments/sidebar :: sidebar('tablas')}"></div>
+
+    <!-- Contenido Principal -->
+    <main class="flex-1 p-4 md:p-6 overflow-y-auto">
+
+        <!-- Header -->
+        <div th:replace="~{fragments/header :: appHeader('Tablas')}"></div>
+
+        <!-- Navegación entre sub-tablas -->
+        <div class="mb-6 flex flex-wrap gap-2">
+            <button id="btn-show-productos" class="btn tab-btn btn-primary" onclick="showManagedTable('productos')">Productos</button>
+            <button id="btn-show-clientes" class="btn tab-btn bg-white" style="color:#344767" onclick="showManagedTable('clientes')">Clientes</button>
+            <button id="btn-show-pedidos" class="btn tab-btn bg-white" style="color:#344767" onclick="showManagedTable('pedidos')">Pedidos</button>
+            <button id="btn-show-empleados" class="btn tab-btn bg-white" style="color:#344767" onclick="showManagedTable('empleados')">Empleados</button>
+        </div>
+
+        <!-- Tabla: Productos -->
+        <div id="table-container-productos" class="managed-table-container space-y-6">
+            <div class="card">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Tabla de Productos</h2>
+                        <p style="color:#67748e">Catálogo de alimentos balanceados.</p>
+                    </div>
+                    <button class="btn btn-primary text-xs" onclick="openNewProductModal()">+ Nuevo Producto</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                        <tr>
+                            <th class="table-header">Producto</th>
+                            <th class="table-header">Tipo Alimento</th>
+                            <th class="table-header">Stock</th>
+                            <th class="table-header">Precio Unitario</th>
+                            <th class="table-header">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla-productos-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla: Clientes -->
+        <div id="table-container-clientes" class="managed-table-container hidden space-y-6">
+            <div class="card">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Tabla de Clientes</h2>
+                        <p style="color:#67748e">Listado de clientes registrados.</p>
+                    </div>
+                    <button class="btn btn-primary text-xs" onclick="openNewClientModal()">+ Nuevo Cliente</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                        <tr>
+                            <th class="table-header">Nombre Cliente</th>
+                            <th class="table-header">DNI</th>
+                            <th class="table-header">Teléfono</th>
+                            <th class="table-header">Dirección</th>
+                            <th class="table-header">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla-clientes-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla: Pedidos -->
+        <div id="table-container-pedidos" class="managed-table-container hidden space-y-6">
+            <div class="card">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Tabla de Pedidos</h2>
+                        <p style="color:#67748e">Historial completo de pedidos realizados.</p>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                        <tr>
+                            <th class="table-header">ID Pedido</th>
+                            <th class="table-header">Cliente</th>
+                            <th class="table-header">Fecha y Hora</th>
+                            <th class="table-header">Estado</th>
+                            <th class="table-header">Total</th>
+                            <th class="table-header">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla-pedidos-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tabla: Empleados -->
+        <div id="table-container-empleados" class="managed-table-container hidden space-y-6">
+            <div class="card">
+                <div class="flex justify-between items-center mb-4">
+                    <div>
+                        <h2 class="text-xl font-bold">Tabla de Empleados</h2>
+                        <p style="color:#67748e">Listado del personal registrado.</p>
+                    </div>
+                    <button class="btn btn-primary text-xs" onclick="openNewEmployeeModal()">+ Nuevo Empleado</button>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                        <tr>
+                            <th class="table-header">Nombre Empleado</th>
+                            <th class="table-header">DNI</th>
+                            <th class="table-header">Rol</th>
+                            <th class="table-header">Teléfono</th>
+                            <th class="table-header">Acciones</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tabla-empleados-body"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modales -->
+    <div th:replace="~{fragments/modals :: allModals}"></div>
+
+    <!-- Scripts -->
+    <script th:src="@{/js/main.js}"></script>
+    <script th:src="@{/js/tablas.js}"></script>
+
+</body>
+</html>

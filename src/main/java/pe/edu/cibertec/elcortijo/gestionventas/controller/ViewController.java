@@ -8,11 +8,26 @@ public class ViewController {
 
     @GetMapping("/")
     public String dashboard() {
-        return "index.html";
+        return "dashboard";
+    }
+
+    @GetMapping("/tablas")
+    public String tablas() {
+        return "tablas";
+    }
+
+    @GetMapping("/checkout")
+    public String checkout() {
+        return "checkout";
+    }
+
+    @GetMapping("/perfil")
+    public String perfil() {
+        return "perfil";
     }
 
     @GetMapping("/login")
     public String login() {
-        return "login.html";
+        return "login";
     }
 }
