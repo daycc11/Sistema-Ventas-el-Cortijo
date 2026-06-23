@@ -92,8 +92,8 @@ http://localhost:8080
 **Usuario de prueba:**
 | DNI | Contraseña | Rol |
 |---|---|---|
-| `74567890` | `password` | Administrador |
-| `70123456` | `password` | Vendedor |
+| `74567890` | `123456` | Administrador |
+| `70123456` | `123456` | Vendedor |
 
 ---
 
