@@ -46,7 +46,15 @@ public class PedidoController {
     private PedidoResumenDto convertirAPedidoResumenDto(PedidoEntity pedido) {
         String nombreCliente = pedido.getCliente().getNombre() + " " + pedido.getCliente().getApellido();
         ComprobanteEntity comprobante = pedido.getComprobante();
-        BigDecimal total = (comprobante != null) ? comprobante.getTotal() : BigDecimal.ZERO;
+        
+        BigDecimal total;
+        if (comprobante != null) {
+            total = comprobante.getTotal();
+        } else {
+            total = pedido.getDetalles().stream()
+                    .map(detalle -> detalle.getSubtotal())
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
 
         return new PedidoResumenDto(
                 pedido.getIdPedido(),
@@ -90,7 +98,14 @@ public class PedidoController {
                 .collect(Collectors.toList());
 
         ComprobanteEntity comprobante = pedido.getComprobante();
-        BigDecimal total = (comprobante != null) ? comprobante.getTotal() : BigDecimal.ZERO;
+        BigDecimal total;
+        if (comprobante != null) {
+            total = comprobante.getTotal();
+        } else {
+            total = pedido.getDetalles().stream()
+                    .map(detalle -> detalle.getSubtotal())
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
 
         return new PedidoCompletoDto(
                 pedido.getIdPedido(),
