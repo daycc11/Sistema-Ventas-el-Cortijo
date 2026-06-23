@@ -180,21 +180,6 @@ Luego haz `git add`, `git commit` y `git push` para subir los cambios.
 2. Haz clic en **Settings** → **Networking** → **Generate Domain**
 3. Obtendrás una URL como: `https://tu-app.up.railway.app`
 
-¡Abre esa URL en tu navegador y el sistema estará funcionando en la nube! 🎉
+¡Abre el sistema desde el siguiente enlace y comienza a utilizar la aplicación en la nube!
+👉 [Ingresar al Sistema de Ventas El Cortijo](https://sistema-ventas-el-cortijo-production.up.railway.app/login)
 
----
-
-## ⚡ TRUCO: Sin comentar/descomentar nada
-
-Si quieres evitar modificar el archivo cada vez, usa esta configuración **inteligente** que funciona sola en ambos entornos:
-
-```properties
-spring.datasource.url=jdbc:mysql://${MYSQLHOST:localhost}:${MYSQLPORT:3306}/${MYSQLDATABASE:sistemacortijolocal}
-spring.datasource.username=${MYSQLUSER:root}
-spring.datasource.password=${MYSQLPASSWORD:}
-```
-
-- **En tu PC:** Como no existen las variables de entorno, usa automáticamente `localhost:3306/sistemacortijolocal`
-- **En Railway:** Lee las variables que configuraste y se conecta a la nube
-
-> ✅ Con este truco, el mismo archivo funciona en ambos entornos sin tocar nada.
