@@ -12,15 +12,16 @@ Desarrollado con **Spring Boot 3.5.3** y **Java 21** | Base de datos **MySQL**
 
 ## 📋 Tabla de Contenidos
 
-- [Descripción del Proyecto](#-descripción-del-proyecto)
-- [Módulos Principales](#-módulos-principales)
-- [Tecnologías y Herramientas](#️-tecnologías-y-herramientas)
-- [Estructura del Proyecto](#-estructura-del-proyecto)
-- [Requisitos Previos](#-requisitos-previos)
-- [Credenciales de Prueba](#-credenciales-de-prueba)
-- [Endpoints y Navegación](#-endpoints-y-navegación)
-- [Base de Datos](#️-base-de-datos)
-- [Autores](#-autores)
+- 🚀 [Descripción del Proyecto](#-descripción-del-proyecto)
+- 📦 [Módulos Principales](#-módulos-principales)
+- 💻 [Tecnologías y Herramientas](#️-tecnologías-y-herramientas)
+- 🏗️ [Estructura del Proyecto](#-estructura-del-proyecto)
+- ⚡ [Requisitos Previos](#-requisitos-previos)
+- 📘 [Manual de Usuario](MANUAL_USUARIO.md)
+- 🔐 [Credenciales de Prueba](#-credenciales-de-prueba)
+- 🔗 [Endpoints y Navegación](#-endpoints-y-navegación)
+- 🗃️ [Base de Datos](#️-base-de-datos)
+- 👥 [Autores](#-autores)
 
 ---
 
